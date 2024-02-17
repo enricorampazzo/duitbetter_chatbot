@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Websocket and HTMX Demo</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+</head>
+<body>
+<h1>Demo of HTMX and Websocket</h1>
+
+<hr/>
+
+<div hx-ext="ws" ws-connect="/ws/echo">
+    <div id="notifications" hx-swap-oob="beforeend"></div>
+    <div id="chat" hx-swap-oob="beforeend">
+        ...
+    </div>
+    <form id="form" ws-send>
+        <label>
+            Send message over websocket to server:
+            <input name="name_of_input">
+        </label>
+        <label>
+            More
+            <input name="more_input">
+        </label>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+
+</body>
+</html>

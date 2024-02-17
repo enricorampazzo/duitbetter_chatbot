@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link href="tailwind.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <title>Timer with Websocket and HTMX</title>
+    <style>
+        .circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid darkgreen;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            /*background: conic-gradient(lightgreen 0% 100%, black 100% 100%);*/
+        }
+
+        .progress-ring {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .progress-circle {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 20;
+        }
+
+        .timer-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: darkgreen;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 2;
+        }
+
+        #timer {
+            z-index: 3;
+            color: white;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+
+<body class="grid grid-cols-3 gap-4">
+
+<div
+     class="col-span-1 flex flex-col justify-center items-center p-4"
+     hx-ext="ws"
+     ws-connect="/ws/timer"
+     hx-swap-oob="innerHtml"
+>
+    <div id="timer-container"
+         class="circle" style="background: conic-gradient(lightgreen 0% 100%, black 100% 100%);">
+        <svg class="progress-ring">
+            <circle class="progress-circle"/>
+        </svg>
+        <div class="timer-circle">
+            <div id="timer" class="font-bold">4:00</div>
+        </div>
+    </div>
+
+</div>
+
+<div id="participants-container"
+     class="col-span-2">
+    <h1 class="font-bold text-sm text-gray-600 uppercase">Timer Control</h1>
+    <form id="form" ws-send>
+        <button type="submit" value="start">Start Timer</button>
+        <button type="submit" value="stop">Stop Timer</button>
+    </form>
+    <button hx-post="/start-timer" hx-swap="none"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >Start Timer (via POST)</button>
+</div>
+
+</body>
+</html>
