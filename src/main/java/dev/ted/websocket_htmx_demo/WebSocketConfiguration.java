@@ -19,7 +19,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(new EchoWebSocketHandler(), "/ws/echo");
+        registry.addHandler(new ChatWebSocketHandler(), "/ws/chat");
         registry.addHandler(webSocketHandler, "/ws/timer");
     }
 

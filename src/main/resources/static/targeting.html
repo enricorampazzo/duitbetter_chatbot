@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>HTMX Targeting Demo</title>
+
+</head>
+
+<body class="grid grid-cols-2 gap-x-8 gap-y-16 p-4">
+
+<div id="hx-get-with-button-wrong-target"
+     class="bg-red-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-get</code> with Button
+    </h1>
+    <p class="text-sm text-black p-2">
+        This example won't do what we want, the HTML returned replaces the inner HTML of the button.
+    </p>
+    <div class="mt-4 grid-cols-1">
+        <div id="replaced-div" class="border bg-blue-100">
+            Want this DIV to be replaced by HTML received from the server.
+        </div>
+    </div>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-get="/replace-div">
+        Replace DIV
+    </button>
+</div>
+
+
+<div id="hx-get-with-button-specifies-target"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-get</code> with Button
+    </h1>
+    <p class="text-sm text-black p-2">
+        This example will work because we added an <code>hx-target</code> to the button that initiates the replacement.
+    </p>
+    <div class="mt-4 grid-cols-1">
+        This content remains, while the following DIV is replaced via target.
+        <div id="target-of-replace" class="border bg-blue-100">
+            Want this DIV to be replaced by HTML received from the server.
+        </div>
+    </div>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-get="/replace-div"
+            hx-target="#target-of-replace">
+        Replace target DIV contents
+    </button>
+</div>
+
+<div id="hx-get-with-button-target-from-swap-oob"
+     class="bg-red-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-get</code> with Button
+    </h1>
+    <p class="text-sm text-black p-2">
+        This example will sort of work because the response from the server contains <code>hx-swap-oob="target-of-oob"</code>.
+        However, what's left over from the response is just a bit of text,
+        so the inner HTML of the Button is replaced with that exact text.
+    </p>
+    <div class="mt-4 grid-cols-1">
+        This content remains, while the following DIV is replaced via <code>hx-swap-oob</code>.
+        <div id="target-of-oob" class="border bg-blue-100">
+            Want this DIV to be replaced by HTML received from the server.
+        </div>
+    </div>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-get="/replace-div-target-of-oob">
+        Replace target DIV contents
+    </button>
+</div>
+
+
+<div id="hx-get-with-button-target-from-swap-oob-ignore-response"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-get</code> with Button
+    </h1>
+    <p class="text-sm text-black p-2">
+        This example fixes the previous problem of the button text being emptied by specifying an <code>hx-swap</code> of <code>none</code>.
+    </p>
+    <div class="mt-4 grid-cols-1">
+        This content remains, while the following DIV is replaced via <code>hx-swap-oob</code>.
+        <div id="target-of-oob-swap-none" class="border bg-blue-100">
+            Want this DIV to be replaced by HTML received from the server.
+        </div>
+    </div>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-get="/replace-div-target-of-oob-swap-none"
+            hx-swap="none">
+        Replace target DIV contents
+    </button>
+</div>
+
+</body>
+</html>

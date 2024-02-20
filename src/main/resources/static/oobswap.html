@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link href="tailwind.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <title>HTMX OOB Swapping Demo</title>
+
+</head>
+
+<body class="grid grid-cols-3 gap-4 p-4">
+
+<div id="oobswapping">
+    <div id="replacediv">
+        div here and...
+        <h1 id="replaceh1"
+            class="font-bold text-xl text-gray-600">Original H1 Text</h1>
+    </div>
+    <div class="grid-cols-1">
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                hx-get="/replaceh1?oob=true">Replace H1 no target nor HX-SWAP, with OOB Response</button>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                hx-get="/replaceh1?oob=true" hx-swap="none">Replace H1, SWAP=none, with OOB Response</button>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                hx-get="/replaceh1?oob=false" hx-target="#replaceh1">Replace H1 target of #replaceh1, NO oob response</button>
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                hx-get="/replacediv" hx-swap-oob="true">Replace DIV</button>
+    </div>
+</div>
+
+</body>
+</html>
