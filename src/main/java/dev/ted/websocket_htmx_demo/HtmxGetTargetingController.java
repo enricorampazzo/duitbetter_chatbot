@@ -39,7 +39,6 @@ public class HtmxGetTargetingController {
                 .formatted(LocalTime.now());
     }
 
-
     @GetMapping("/replace-multiple-targets-of-oob-swap")
     public String replaceMultipleTargetsOfOobSwap() {
         return """
