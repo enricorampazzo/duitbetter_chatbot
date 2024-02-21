@@ -66,5 +66,31 @@
     </button>
 </div>
 
+<div id="three-way-toggler-multiple-targets"
+     class="bg-green-100 p-2"
+     hx-trigger="load"
+     hx-get="/next-state-multiple-targets"
+     hx-swap="none">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-post</code> with Button and Multiple Targets
+    </h1>
+    <p class="text-sm text-black p-4">
+        This is similar to the previous example, but the POST response returns
+        HTML that has multiple targets: the "current state view" and the button's text.
+    </p>
+    <h2 class="font-bold text-2xl text-indigo-700 mt-2"
+        id="three-way-current-state">
+        current state
+    </h2>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-post="/next-state-multiple-targets"
+            hx-swap="innerHTML"
+            id="three-way-state-multiple-targets-button">
+        Click Me
+    </button>
+</div>
+
+
+
 </body>
 </html>
