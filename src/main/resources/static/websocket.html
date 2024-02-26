@@ -56,7 +56,7 @@
 <div id="bidirectional-websocket"
      class="bg-green-100 p-2">
     <h1 class="font-bold text-3xl text-gray-600">
-        HTMX <code>ws-send</code> to "Post" to Server
+        HTMX <code>ws-send</code> to send a "POST"-like command to the Server
     </h1>
     <p class="text-sm text-black p-4 mt-2">
         This example uses a WebSocket for bidirectional communication:
@@ -64,15 +64,18 @@
         and sending state change requests to the server over the WebSocket
         using <code>ws-send</code>.
     </p>
-    <p class="font-semibold text-base text-indigo-800 mt-2"
-        id="receive-current-state">
+    <p class="font-bold text-2xl text-indigo-700 mt-2"
+        id="ws-post-result-current-state">
         current state
     </p>
     <form id="websocket-form" ws-send>
-        <input hidden id="input-id" name="input-name" value="input value">
+<!--        <input hidden id="input-id" name="input-name" value="input value">-->
         <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
-                id="change-state-over-websocket">
-            Send via WebSocket
+                type="submit"
+                name="websocket-command"
+                value="change-state"
+                id="ws-post-result-state-button">
+            "POST" via WebSocket
         </button>
     </form>
 </div>

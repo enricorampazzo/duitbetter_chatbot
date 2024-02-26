@@ -72,15 +72,33 @@ public class WebSocketBroadcaster extends TextWebSocketHandler {
     @Override
     // language=html
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        LOGGER.debug("Text Message received: {}", message);
         String payload = message.getPayload();
         Map<String, Object> payloadAsMap = objectMapper.readValue(payload, new TypeReference<>() {
         });
 
+        if (payloadAsMap.containsKey("websocket-command")) {
+            active = !active;
+            String updateCurrentState = """
+                <swap-target id="ws-post-result-current-state" hx-swap-oob="innerHTML">
+                %s
+                </swap-target>
+                """.formatted(active ? "Currently Active" : "Currently Inactive");
+
+            String updateButtonText = """
+                <swap-target id="ws-post-result-state-button" hx-swap-oob="innerHTML">
+                %s
+                </swap-target>
+                """.formatted(active ? "Deactivate" : "Activate");
+            send(updateCurrentState + updateButtonText);
+            return;
+        }
+
         send("""
-                     <swap-target id="receive-current-state" hx-swap-oob="innerHTML">
+                     <swap-target id="ws-post-receive-current-state" hx-swap-oob="innerHTML">
                      %s (from %s)
                      </swap-target>
-                     """.formatted(payloadAsMap.get("input-name"), session.getId()));
+                     """.formatted(payloadAsMap, session.getId()));
     }
 
     // language=html
