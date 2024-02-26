@@ -1,5 +1,6 @@
 package dev.ted.websocket_htmx_demo;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 
 class ChatWebSocketHandler extends TextWebSocketHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TextWebSocketHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ChatWebSocketHandler.class);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -22,8 +23,10 @@ class ChatWebSocketHandler extends TextWebSocketHandler {
         try {
             String payload = message.getPayload();
             sendNotification(session, payload, "actual-payloads");
-            Map<String, String> commandMap = objectMapper.readValue(payload, Map.class);
-            sendNotification(session, commandMap.get("name_of_input"), "chat-messages");
+            Map<String, Object> payloadAsMap = objectMapper.readValue(payload, new TypeReference<>() {
+            });
+            String nameOfInput = (String) payloadAsMap.get("name_of_input");
+            sendNotification(session, nameOfInput, "chat-messages");
         } catch (IOException e) {
             throw new IllegalStateException("Invalid JSON received", e);
         }

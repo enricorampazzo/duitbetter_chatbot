@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>WebSocket HTMX Demo</title>
+
+</head>
+
+<body class="grid grid-cols-2 gap-x-8 gap-y-16 p-4"
+      hx-ext="ws"
+      ws-connect="/ws/state">
+
+<div id="websocket-handler-connect"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        HTMX <code>ws-connect</code> Handling
+    </h1>
+    <p class="text-sm text-black p-4 mt-2">
+        This example uses a WebSocket to receive updates pushed from the server
+        so that we always see the up-to-date state without having to refresh the page.
+    </p>
+    <h2 class="font-bold text-2xl text-indigo-700 mt-2"
+        id="current-state-clients-connected">
+        current state
+    </h2>
+</div>
+
+<div id="websocket-handler-with-post"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        HTMX <code>ws-connect</code> with POST-based Button
+    </h1>
+    <p class="text-sm text-black p-4 mt-2">
+        This example uses a WebSocket to receive updates pushed from the server
+        so that we always see the up-to-date state without having to refresh the page.
+    </p>
+    <h2 class="font-bold text-2xl text-indigo-700 mt-2"
+        id="post-result-current-state">
+        current state
+    </h2>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-post="/next-state-websocket"
+            hx-swap="none"
+            id="post-result-state-button">
+        Click Me
+    </button>
+</div>
+
+<div id="bidirectional-websocket"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        HTMX <code>ws-send</code> to "Post" to Server
+    </h1>
+    <p class="text-sm text-black p-4 mt-2">
+        This example uses a WebSocket for bidirectional communication:
+        updating the state from messages received from the server,
+        and sending state change requests to the server over the WebSocket
+        using <code>ws-send</code>.
+    </p>
+    <p class="font-semibold text-base text-indigo-800 mt-2"
+        id="receive-current-state">
+        current state
+    </p>
+    <form id="websocket-form" ws-send>
+        <input hidden id="input-id" name="input-name" value="input value">
+        <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                id="change-state-over-websocket">
+            Send via WebSocket
+        </button>
+    </form>
+</div>
+
+
+</body>
+</html>
