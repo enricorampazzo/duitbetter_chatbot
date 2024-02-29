@@ -58,7 +58,7 @@ public class WebSocketBroadcaster extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         sessionMap.put(session.getId(), session);
-        LOGGER.debug("Session connected: {}", session);
+        LOGGER.debug("Session connected: {}, Principal: {}", session, session.getPrincipal());
         broadcastUpdate();
     }
 
@@ -72,7 +72,7 @@ public class WebSocketBroadcaster extends TextWebSocketHandler {
     @Override
     // language=html
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        LOGGER.debug("Text Message received: {}", message);
+        LOGGER.debug("Text Message received: {} from Principal: {}", message, session.getPrincipal());
         String payload = message.getPayload();
         Map<String, Object> payloadAsMap = objectMapper.readValue(payload, new TypeReference<>() {
         });
@@ -80,16 +80,16 @@ public class WebSocketBroadcaster extends TextWebSocketHandler {
         if (payloadAsMap.containsKey("websocket-command")) {
             active = !active;
             String updateCurrentState = """
-                <swap-target id="ws-post-result-current-state" hx-swap-oob="innerHTML">
-                %s
-                </swap-target>
-                """.formatted(active ? "Currently Active" : "Currently Inactive");
+                    <swap-target id="ws-post-result-current-state" hx-swap-oob="innerHTML">
+                    %s
+                    </swap-target>
+                    """.formatted(active ? "Currently Active" : "Currently Inactive");
 
             String updateButtonText = """
-                <swap-target id="ws-post-result-state-button" hx-swap-oob="innerHTML">
-                %s
-                </swap-target>
-                """.formatted(active ? "Deactivate" : "Activate");
+                    <swap-target id="ws-post-result-state-button" hx-swap-oob="innerHTML">
+                    %s
+                    </swap-target>
+                    """.formatted(active ? "Deactivate" : "Activate");
             send(updateCurrentState + updateButtonText);
             return;
         }
