@@ -14,7 +14,7 @@ public class HtmxController {
         return """
                 <h1 id="replaceh1" %s
                     class="font-bold text-sm text-gray-600 uppercase">Replaced by server response at %s</h1>"""
-                .formatted(oob ? "hx-swap-oob=\"true\"" : "",
+                .formatted(oob ? "hx-swap-oob=\"outerHTML\"" : "",
                         LocalTime.now());
     }
 
