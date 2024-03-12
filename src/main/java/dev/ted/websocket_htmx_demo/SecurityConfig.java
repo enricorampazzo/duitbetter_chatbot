@@ -1,5 +1,6 @@
 package dev.ted.websocket_htmx_demo;
 
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -17,8 +18,10 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf((csrf) -> csrf.disable());
 		http
 				.authorizeHttpRequests((authorize) -> authorize
+						.dispatcherTypeMatchers(DispatcherType.ERROR, DispatcherType.FORWARD).permitAll()
 						.requestMatchers("/websocket.html").authenticated()
 						.anyRequest().permitAll()
 				)

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Task Timer</title>
+
+</head>
+
+<body class="grid grid-cols-2 gap-x-8 gap-y-16 p-4">
+
+<div id="constant"
+     class="bg-green-100 p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-post</code> with Button
+    </h1>
+    <p class="text-sm text-black p-2">
+        This example does a POST to the server, which returns a constant text.
+    </p>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-post="/post-constant">
+        Activate
+    </button>
+</div>
+
+<div id="three-way-toggler"
+     class="bg-green-100 p-2"
+     hx-trigger="load"
+     hx-get="/next-state"
+     hx-swap="none">
+    <h1 class="font-bold text-3xl text-gray-600">
+        <code>hx-post</code> with Button
+    </h1>
+    <p class="text-sm text-black p-4">
+        This example changes a 3-Way (Enum-based) state on the server, which causes the button text
+        to reflect the new state, thereby creating a button that asks the server to change state
+        to whatever the server thinks the next state should be.
+    </p>
+    <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+            hx-post="/next-state"
+            hx-swap="innerHTML"
+            id="three-way-state">
+        Click Me
+    </button>
+</div>
+
+</body>
+</html>

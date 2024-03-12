@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Websocket and HTMX Demo</title>
-    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
 </head>
 <body>
@@ -13,12 +15,31 @@
 
 <h2>Pages:</h2>
 <div>
-    <p>
-        <a href="/targeting.html">Try out hx-get for GET targeting</a>
-    </p>
-    <p>
-        <a href="/state-change-actions.html">Try out POST to change state on the server.</a>
-    </p>
+    <div>
+        <h3>Task Timer: Who Decides</h3>
+        <p>
+            <a href="/thymeleaf/task-timer">Thymeleaf Decides which buttons to show</a>
+        </p>
+        <p>
+            <a href="/thymeleaf-state-templates/task-timer">Controller Decides which Thymeleaf Template
+                to return</a>
+        </p>
+        <p>
+            <a href="/model-buttons/task-timer">Controller puts Button Descriptors into Model</a>
+        </p>
+        <p>
+            <a href="/htmx-options/task-timer">htmx returns rendered HTML of buttons and current state</a>
+        </p>
+    </div>
+    <div>
+        <h3>htmx-specific pages:</h3>
+        <p>
+            <a href="/targeting.html">Try out hx-get for GET targeting</a>
+        </p>
+        <p>
+            <a href="/state-change-actions.html">Try out POST to change state on the server.</a>
+        </p>
+    </div>
 </div>
 
 <hr/>

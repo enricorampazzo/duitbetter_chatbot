@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Task Timer: Thymeleaf Decides</title>
+</head>
+
+<body class="p-4">
+
+<div id="task-toggler"
+     class="p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        Task Timer
+    </h1>
+    <p class="text-sm text-black p-4">
+        Current State: <span th:text="${state}">Current State</span>
+    </p>
+    <div class="flex gap-x-4">
+        <form th:if="${state == 'WAITING_TO_START'}"
+              th:action="@{/thymeleaf/task-timer/start}" method="post">
+            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    type="submit">
+                Start
+            </button>
+        </form>
+        <form th:if="${state == 'STARTED'}"
+                th:action="@{/thymeleaf/task-timer/pause}" method="post">
+            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    type="submit">
+                Pause
+            </button>
+        </form>
+        <form th:if="${state == 'PAUSED'}"
+              th:action="@{/thymeleaf/task-timer/resume}" method="post">
+            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    type="submit">
+                Resume
+            </button>
+        </form>
+        <form th:if="${state == 'STARTED' || state == 'PAUSED'}"
+                th:action="@{/thymeleaf/task-timer/complete}" method="post">
+            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    type="submit">
+                Complete Task
+            </button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

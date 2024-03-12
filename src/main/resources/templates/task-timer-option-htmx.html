@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Task Timer: htmx</title>
+</head>
+
+<body class="p-4">
+
+<div id="task-toggler"
+     class="p-2"
+     hx-trigger="load"
+     hx-get="/htmx-options/task-timer-state"
+     hx-swap="none">
+    <h1 class="font-bold text-3xl text-gray-600">
+        Task Timer
+    </h1>
+    <p class="text-sm text-black p-4">
+        Current State: <span id="current-state">Current State</span>
+    </p>
+    <div class="flex gap-x-4"
+        id="button-div">
+        buttons will go here
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Task Timer: Model has Button Descriptors</title>
+</head>
+
+<body class="p-4">
+
+<div id="task-toggler"
+     class="p-2">
+    <h1 class="font-bold text-3xl text-gray-600">
+        Task Timer
+    </h1>
+    <p class="text-sm text-black p-4">
+        Current State: <span th:text="${state}">Current State</span>
+    </p>
+    <div class="flex gap-x-4">
+        <form th:each="button : ${buttons}"
+              th:action="@{${button.actionUrl}}" method="post">
+            <button class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    type="submit"
+                    th:utext="${button.label}">
+                Button Label
+            </button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
